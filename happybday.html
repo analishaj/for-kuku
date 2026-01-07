@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For Kuku</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* --- Base page --- */
+    body {
+      background: #bae0f3; /* Light Blue Background */
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --- INTRO SCREEN STYLES --- */
+    #intro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #bae0f3; /* Same blue background */
+      z-index: 999; /* Sit on top of everything */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 1s ease-in-out; /* Smooth fade out */
+    }
+
+    /* The Button Style */
+    #start-btn {
+      background-color: #b31b1b; /* Deep Red */
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 15px 40px;
+      border: none;
+      border-radius: 50px; /* Rounded pill shape */
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(179, 27, 27, 0.4); /* Nice shadow */
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #start-btn:hover {
+      transform: scale(1.05); /* Grows slightly on hover */
+      box-shadow: 0 6px 20px rgba(179, 27, 27, 0.6);
+    }
+    
+    #start-btn:active {
+      transform: scale(0.95); /* Shrinks slightly on click */
+    }
+
+    /* --- MAIN CONTENT WRAPPER (Hidden initially) --- */
+    #main-content {
+      opacity: 0; /* Invisible at start */
+      transition: opacity 2s ease-in; /* Slow fade in */
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    /* --- Heart Container --- */
+    #ui {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      width: 450px; 
+      height: 450px;
+      transform: translate(-50%, -50%) scale(0.6);
+      pointer-events: none; 
+    }
+
+    /* --- Message Box --- */
+    .message-box {
+      position: absolute;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;          
+      max-width: 650px;    
+      z-index: 100;
+      text-align: center;
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px; 
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #b31b1b; /* Deep Red */
+      font-size: 16px; 
+      @media (max-width: 400px) {
+        font-size: 14px;
+      }
+      font-weight: bold;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6; 
+      text-align: center;
+      resize: none; 
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+    }
+
+    /* --- Animation Logic --- */
+    .love {
+      position: absolute;
+      top: 0;
+      left: 0;
+      --i: 1; 
+    }
+
+    .love_word {
+      color: #b31b1b; /* Deep Red */
+      font-size: 1.4rem;
+      transform: translateY(-100%) rotateZ(-30deg);
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
+      letter-spacing: 2px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .love_horizontal {
+      animation: horizontal 10000ms infinite alternate ease-in-out;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+    .love_vertical {
+      animation: vertical 20000ms infinite linear;
+      animation-delay: calc(var(--i) * -300ms);
+    }
+
+    @keyframes horizontal {
+      from { transform: translateX(0px); }
+      to   { transform: translateX(450px); }
+    }
+    @keyframes vertical {
+      0%   { transform: translateY(180px); }
+      10%  { transform: translateY(45px); }
+      15%  { transform: translateY(4.5px); }
+      18%  { transform: translateY(0px); }       
+      20%  { transform: translateY(4.5px); }
+      22%  { transform: translateY(34.6px); }
+      24%  { transform: translateY(64.2px); }
+      25%  { transform: translateY(112.5px); }   
+      26%  { transform: translateY(64.2px); }
+      28%  { transform: translateY(34.6px); }
+      30%  { transform: translateY(4.5px); }
+      32%  { transform: translateY(0px); }       
+      35%  { transform: translateY(4.5px); }
+      40%  { transform: translateY(45px); }
+      50%  { transform: translateY(180px); }
+      71%  { transform: translateY(428.5px); }
+      72.5%{ transform: translateY(441.1px); }
+      75%  { transform: translateY(450px); }     
+      77.5%{ transform: translateY(441.1px); }
+      79%  { transform: translateY(428.5px); }
+      100% { transform: translateY(180px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="intro">
+    <button id="start-btn">for kuku &lt;3</button>
+  </div>
+
+  <div id="main-content">
+    <div id="ui"></div>
+    <div class="message-box">
+      <textarea readonly>happiee birthday to the cutest, sweetest and the most lovely boy ever ❤️
+
+i love you so sooo much and it's honestly more than i can ever express baby. 
+
+i wish someday i can celebrate every occassion with you, especially bdays becs i love celebrating bdays and i love you (ALOT) meet me soon u stoopid bb monke i cant wait to hug u and kissi kissi u ALL DAYY.</textarea>
+    </div>
+  </div>
+
+  <script>
+    // --- Intro Logic ---
+    const introScreen = document.getElementById('intro');
+    const startBtn = document.getElementById('start-btn');
+    const mainContent = document.getElementById('main-content');
+
+    startBtn.addEventListener('click', () => {
+      // 1. Fade out the intro
+      introScreen.style.opacity = '0';
+      
+      // 2. Wait for fade to finish, then remove intro and show main
+      setTimeout(() => {
+        introScreen.style.display = 'none';
+        mainContent.style.opacity = '1';
+      }, 1000); // 1000ms matches the CSS transition time
+    });
+
+
+    // --- Heart Animation Logic ---
+    const N = 80; 
+    const ui = document.getElementById('ui');
+
+    for (let i = 1; i <= N; i++) {
+      const love = document.createElement('div');
+      love.className = 'love';
+      love.style.setProperty('--i', i);
+
+      const h = document.createElement('div');
+      h.className = 'love_horizontal';
+
+      const v = document.createElement('div');
+      v.className = 'love_vertical';
+
+      const word = document.createElement('div');
+      word.className = 'love_word';
+      word.textContent = 'I love you'; 
+
+      v.appendChild(word);
+      h.appendChild(v);
+      love.appendChild(h);
+      ui.appendChild(love);
+    }
+  </script>
+</body>
+</html>
